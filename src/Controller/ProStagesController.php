@@ -14,7 +14,7 @@ class ProStagesController extends AbstractController
 
      public function indexHome()
      {
-return $this->render('proStages/indexHome.html.twig');
+return $this->render('pro_stages/indexHome.html.twig');
 
 
         /*return new Response(
@@ -35,7 +35,7 @@ return $this->render('proStages/indexHome.html.twig');
     {
 
 
-        return $this->render('proStages/indexEntreprises.html.twig');
+        return $this->render('pro_stages/indexEntreprises.html.twig');
 
       /* return new Response(
            '<html>
@@ -55,7 +55,7 @@ return $this->render('proStages/indexHome.html.twig');
       
       
       
-      return $this->render('proStages/indexFormations.html.twig');
+      return $this->render('pro_stages/indexFormations.html.twig');
       
         /* return new Response(
            '<html>
@@ -74,7 +74,7 @@ return $this->render('proStages/indexHome.html.twig');
     {
        
        
-       return $this->render('proStages/indexStages.html.twig', ['idStage'=>$id]);
+       return $this->render('pro_stages/indexStages.html.twig', ['idStages'=>$id]);
        
        
        
@@ -90,7 +90,6 @@ return $this->render('proStages/indexHome.html.twig');
     /*public function index()
     {
         return $this->render('pro_stages/index.html.twig', [
-            'controller_name' => 'ProStagesController',
-        ]);
+            'controller_name' => 'ProStagesController',]);
     }*/
 }
