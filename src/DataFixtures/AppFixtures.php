@@ -1,46 +1,67 @@
 <?php
-
 namespace App\DataFixtures;
-
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Formation;
 use App\Entity\Entreprise;
+use App\Entity\Stage;
 class AppFixtures extends Fixture
 {
   public function load(ObjectManager $manager)
   {
-
-
-    //Création de données de test en dur
-    $formationDUTInformatique= new Formation();
-    $formationDUTInformatique->setNomLong("Diplome Universitaire et Technologique en Informatique");
-    $formationDUTInformatique->setNomCourt("DUT INFO");
-    $manager->persist($formationDUTInformatique);
-
-    $formationLicenceMultimedia= new Formation();
-    $formationLicenceMultimedia->setNomLong("Licence Multimedia");
-    $formationLicenceMultimedia->setNomCourt("LP Multimedia");
-    $manager->persist($formationLicenceMultimedia);
-
-    $formationDUTIC= new Formation();
-    $formationDUTIC->setNomLong("Diplome Universitaire en Technologie de l'Information et de la Communication");
-    $formationDUTIC->setNomCourt("DU TIC");
-    $manager->persist($formationDUTIC);
-
-    //Création d'un générateur de données FAKER
+    // Création d'un générateur de donnée avec FAKER
     $faker = \Faker\Factory::create('fr_FR');
-    //Création de données avec FAKER
-    $nbEntreprises=15;
-    for($i=1;$i <=$nbEntreprises;$i++){
-    $Entreprise1= new Entreprise();
-    $Entreprise1->setNom($faker->realText($maxNbChars = 200, $indexSize = 2));
-    $Entreprise1->setActivite($faker->regexify('M[1-4][1-2]0[1-7]'));
-    $Entreprise1->setAdresse($faker->address);
-    $Entreprise1->setSiteWeb($faker->url);
-    $manager->persist($Entreprise1);
+
+//Création des Entreprises
+    $nbEntreprises = 10;
+      for ($i = 0 ; $i < $nbEntreprises ; $i++ ) {
+        $tabEntreprise[$i] = new Entreprise();
+        $tabEntreprise[$i]->setNom($faker->company);
+        $tabEntreprise[$i]->setActivite($faker->regexify('(Développement|Conception|Agence) (Web|Bases de données|Mobile)'));
+        $tabEntreprise[$i]->setAdresse($faker->address);
+        $tabEntreprise[$i]->setSiteWeb($faker->domainName);
+        $manager->persist($tabEntreprise[$i]);
+      }
+
+      //Création des formations et stages
+      $listeFormations = array(
+        "DUT INFO" => "DUT Informatique",
+        "DUT GEA" => "DUT Gestion Entreprises et Administrations",
+        "DUT COM" => "DUT Techniques Commercialisation",
+        "Licence INFO" => "Licence Informatique",
+      );
+      foreach ($listeFormations as $nomCourt => $nom) {
+        // ************* Création d'une nouvelle formation *************
+        $formation = new Formation();
+
+        // Définition du nom court de la formation
+        $formation->setNomCourt($nomCourt);
+
+        // Définition du nom (long) de la formation
+        $formation->setNomLong($nom);
+        $manager->persist($formation);
+
+// Création de plusieurs stages associés à la formation
+        $nbStagesAGenerer = $faker->numberBetween($min = 0, $max = 10);
+        for ($numStage = 0; $numStage < $nbStagesAGenerer; $numStage++) {
+          $stage = new Stage();
+          $stage -> setTitre("Stage - ".$faker->jobTitle);
+          $stage -> setEmail($faker->companyEmail);
+          $stage -> setDescription($faker->realText($maxNbChars = 1000, $indexSize = 2));
+          // Création relation Stage --> Formation
+          $stage -> addFormation($formation);
+
+          // Sélectionner une entreprise au hasard parmi les 15 créées dans $tabEntreprise
+          $numEntreprise = $faker->numberBetween($min = 0, $max = 9);
+          // Création relation Stage --> Entreprise
+          $stage -> setEntreprise($tabEntreprise[$numEntreprise]);
+          // Création relation Entreprise --> Stage
+          $tabEntreprise[$numEntreprise] -> addStage($stage);
+          // Persister les objets modifiés
+          $manager->persist($stage);
+          //$manager->persist($tabEntreprise[$numEntreprise]);
+        }
+      }
+      $manager->flush();
+    }
   }
-  //Envoyer les données en  BD
-  $manager->flush();
-  }
-}
