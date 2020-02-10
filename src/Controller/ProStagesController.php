@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Formation;
 use App\Entity\Entreprise;
+use App\Repository\StageRepository;
+use App\Repository\FormationRepository;
+use App\Repository\EntrepriseRepository;
 
 
 class ProStagesController extends AbstractController
@@ -16,11 +19,9 @@ class ProStagesController extends AbstractController
   * @Route("/", name="proStages_")
   */
 
-  public function indexHome()
+  public function indexHome(StageRepository $repositoryStage)
   {
 
-//Récupérer le repository de l'entité  Stage
-$repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
 //Récupérer les stages enregistrées en BD
 $stages=$repositoryStage->findAll();
     //Envoyer les stages à la vue chargé de les afficher
@@ -41,9 +42,8 @@ $stages=$repositoryStage->findAll();
   * @Route("/entreprises", name="proStages_entreprises")
   */
 
-  public function indexEntreprises()
-  {     //Récupérer le repository de l'entité entreprise
-        $repositoryEntreprise = $this->getDoctrine()->getRepository(Entreprise::class);
+  public function indexEntreprises(EntrepriseRepository $repositoryEntreprise)
+  {
         //Récupérer les entreprises se trouvant dans la base de données
         $entreprises = $repositoryEntreprise->findAll();
         //Envoyer les entreprises à la vue chargé de les afficher
@@ -62,10 +62,9 @@ $stages=$repositoryStage->findAll();
   * @Route("/formations", name="proStages_formations")
   */
 
-  public function indexFormations()
+  public function indexFormations(FormationRepository $repositoryFormation)
   {
-            //Récupérer le repository de l'entité formation
-            $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+
             //Récupérer les formations se trouvant dans la base de données
             $formations = $repositoryFormation->findAll();
             //Envoyer les formations à la vue chargé de les afficher
@@ -85,13 +84,12 @@ $stages=$repositoryStage->findAll();
   * @Route("/stages/{id}", name="proStages_stages/{id}")
   */
 
-  public function indexStages($id)
-  {     //Récupérer le repository de l'entité stage
-        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-        //Récupérer les stages se trouvant dans la base de données
-        $stage = $repositoryStage->find($id);
+  public function indexStages(StageRepository $repositoryStage)
+  {
         //Envoyer les stages à la vue chargé de les afficher
         return $this->render('pro_stages/indexStages.html.twig', ['stage'=>$stage]);
+
+
 
 
 
