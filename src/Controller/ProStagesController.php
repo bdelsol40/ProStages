@@ -26,14 +26,6 @@ class ProStagesController extends AbstractController
 $stages=$repositoryStage->findAll();
     //Envoyer les stages à la vue chargé de les afficher
     return $this->render('pro_stages/indexHome.html.twig',['stages'=>$stages]);
-
-
-    /*return new Response(
-    '<html>
-    <body>
-    <h1>Bienvenue sur la page d accueil de ProStages</h1>
-    </body>
-    </html>');*/
   }
 
 
@@ -49,12 +41,7 @@ $stages=$repositoryStage->findAll();
         //Envoyer les entreprises à la vue chargé de les afficher
         return $this->render('pro_stages/indexEntreprises.html.twig', ['entreprises'=>$entreprises]);
 
-    /* return new Response(
-    '<html>
-    <body>
-    <h1>Cette page affichera la liste des entreprises proposant un stage</h1>
-    </body>
-    </html>');*/
+
   }
 
 
@@ -71,41 +58,31 @@ $stages=$repositoryStage->findAll();
             return $this->render('pro_stages/indexFormations.html.twig', ['formations'=>$formations]);
 
 
-    /* return new Response(
-    '<html>
-    <body>
-    <h1>Cette page affichera la liste des formations de l IUT</h1>
-    </body>
-    </html>');*/
+
   }
 
 
   /**
-  * @Route("/stages/{id}", name="proStages_stages/{id}")
+  * @Route("/stages/{id}", name="proStages_stages")
   */
 
-  public function indexStages(StageRepository $repositoryStage)
+  public function indexStages(Stage $stage)
   {
-        //Envoyer les stages à la vue chargé de les afficher
+        //Envoyer le stage à la vue chargée de les afficher
         return $this->render('pro_stages/indexStages.html.twig', ['stage'=>$stage]);
-
-
-
-
-
-
-    /*return new Response(
-    '<html>
-    <body>
-    <h1>Cette page affichera le descriptif du stage ayant pour identifiant {{id}}</h1>
-    </body>
-    </html>');*/
   }
 
+  /**
+  * @Route("/entreprises/{nom}", name="proStages_stages_entreprise")
+  */
 
-  /*public function index()
+  public function findByEntreprise(StageRepository $repositoryStage, $entreprise)
   {
-  return $this->render('pro_stages/index.html.twig', [
-  'controller_name' => 'ProStagesController',]);
-}*/
+
+    //Récupérer les stages enregistrées en BD
+    $stages=$repositoryStage->findByNomEntreprise($entreprise);
+    //Envoyer les stages à la vue chargée de les afficher
+    return $this->render('pro_stages/indexHome.html.twig',['stages'=>$stages]);
+  }
+
 }

@@ -27,7 +27,6 @@ class AppFixtures extends Fixture
     $listeFormations = array(
       "DUT INFO" => "DUT Informatique",
       "DUT GEA" => "DUT Gestion Entreprises et Administrations",
-      "DUT COM" => "DUT Techniques Commercialisation",
       "Licence INFO" => "Licence Informatique",
     );
     foreach ($listeFormations as $nomCourt => $nom) {

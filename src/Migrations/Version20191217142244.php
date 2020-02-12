@@ -22,7 +22,7 @@ final class Version20191217142244 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE Entreprise (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, activite VARCHAR(255) DEFAULT NULL, adresse VARCHAR(255) DEFAULT NULL, site_web VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE Entreprise (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, activite VARCHAR(255) NOT NULL, adresse VARCHAR(255) NOT NULL, site_web VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void

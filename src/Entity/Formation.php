@@ -33,6 +33,8 @@ class Formation
      */
     private $stages;
 
+    
+
     public function __construct()
     {
         $this->stages = new ArrayCollection();
@@ -91,6 +93,18 @@ class Formation
             $this->stages->removeElement($stage);
             $stage->removeFormation($this);
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }
