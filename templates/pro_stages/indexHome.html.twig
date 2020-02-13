@@ -21,7 +21,8 @@
         {{stageCourant.titre}}</a></td>
 
         <td>
-          {{stageCourant.entreprise.getNom}}
+        <a href = "{{path('proStages_stages_entreprise', {nom:stageCourant.entreprise.getNom})}}" style="color:white; text-decoration:none;">
+          {{stageCourant.entreprise.getNom}}</a>
         </td>
         <td>
           {% for formationCourante in stageCourant.formations %}

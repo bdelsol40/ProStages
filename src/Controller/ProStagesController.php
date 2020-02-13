@@ -76,13 +76,13 @@ $stages=$repositoryStage->findAll();
   * @Route("/entreprises/{nom}", name="proStages_stages_entreprise")
   */
 
-  public function findByEntreprise(StageRepository $repositoryStage, $entreprise)
+  public function indexStagesParEntreprise(StageRepository $repositoryStage, $nom)
   {
 
     //Récupérer les stages enregistrées en BD
-    $stages=$repositoryStage->findByNomEntreprise($entreprise);
+    $stages=$repositoryStage->findByNomEntreprise($nom);
     //Envoyer les stages à la vue chargée de les afficher
-    return $this->render('pro_stages/indexHome.html.twig',['stages'=>$stages]);
+    return $this->render('pro_stages/entreprise_stages.html.twig',['stages'=>$stages]);
   }
 
 }
