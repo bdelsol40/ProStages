@@ -84,5 +84,16 @@ $stages=$repositoryStage->findAll();
     //Envoyer les stages à la vue chargée de les afficher
     return $this->render('pro_stages/entreprise_stages.html.twig',['stages'=>$stages]);
   }
+  /**
+  * @Route("/formation/{nom}", name="proStages_stages_formation")
+  */
+  public function indexStagesParFormation(StageRepository $repositoryStage, $nom)
+  {
 
+    //Récupérer les stages enregistrées en BD
+    $stages=$repositoryStage->findByFormation($nom);
+    //Envoyer les stages à la vue chargée de les afficher
+    return $this->render('pro_stages/formation_stages.html.twig',['stages'=>$stages]);
+
+  }
 }

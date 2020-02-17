@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Formation</th>
+                        <th scope="col">Entreprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for stageCourant in stages %}
+                    <tr>
+                        <td>
+                            <a href="{{path('proStages_stages', {id:stageCourant.id})}}" style="color:white; text-decoration:none;">
+                                {{stageCourant.titre}}
+                            </a>
+                        </td>
+                        <td>
+          {% for formationCourante in stageCourant.formations %}
+          {{formationCourante.nomCourt}}
+
+          {% endfor %}
+        </td>
+
+                        <td>
+                          {{ stageCourant.entreprise.getNom }}
+
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
