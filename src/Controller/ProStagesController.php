@@ -23,7 +23,7 @@ class ProStagesController extends AbstractController
   {
 
 //Récupérer les stages enregistrées en BD
-$stages=$repositoryStage->findAll();
+$stages=$repositoryStage->findByStages();
     //Envoyer les stages à la vue chargé de les afficher
     return $this->render('pro_stages/indexHome.html.twig',['stages'=>$stages]);
   }
@@ -46,7 +46,6 @@ $formulaireEntreprise = $this->createFormBuilder($entreprise)
 ->add('activite')
 ->add('adresse')
 ->add('siteWeb')
-->add('nom')
 ->getForm();
 
 //création de la représentation graphique du formulaire
