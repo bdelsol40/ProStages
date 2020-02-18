@@ -31,6 +31,21 @@ $stages=$repositoryStage->findAll();
 
 
   /**
+  * @Route("/entreprises/ajouter", name="proStages_ajoutEntreprise")
+  */
+
+  public function ajouterEntreprise()
+  {
+
+
+    //Afficher la page présentant le formulaire d'ajout d'une entreprise
+    return $this->render('pro_stages/ajoutEntreprise.html.twig');
+  }
+
+
+
+
+  /**
   * @Route("/entreprises", name="proStages_entreprises")
   */
 
