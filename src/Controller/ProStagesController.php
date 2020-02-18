@@ -37,9 +37,22 @@ $stages=$repositoryStage->findAll();
   public function ajouterEntreprise()
   {
 
+//Création d'une entreprise vierge qui sera remplie par le Formulaire
+$entreprise = new Entreprise();
 
+//Création du formlulaire permettant de saisir une entreprises
+$formulaireEntreprise = $this->createFormBuilder($entreprise)
+->add('nom')
+->add('activite')
+->add('adresse')
+->add('siteWeb')
+->add('nom')
+->getForm();
+
+//création de la représentation graphique du formulaire
+$vueFormulaire = $formulaireEntreprise->createView();
     //Afficher la page présentant le formulaire d'ajout d'une entreprise
-    return $this->render('pro_stages/ajoutEntreprise.html.twig');
+    return $this->render('pro_stages/ajoutEntreprise.html.twig',['vueFormulaire' => $vueFormulaire]);
   }
 
 
