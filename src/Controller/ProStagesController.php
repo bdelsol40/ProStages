@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 
+
 class ProStagesController extends AbstractController
 {
   /**
@@ -48,6 +49,7 @@ $formulaireEntreprise = $this->createFormBuilder($entreprise)
 ->add('activite', TextType::class)
 ->add('adresse', TextType::class)
 ->add('siteWeb', UrlType::class)
+
 ->getForm();
 
 //création de la représentation graphique du formulaire
