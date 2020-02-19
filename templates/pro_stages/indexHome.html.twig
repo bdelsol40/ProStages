@@ -19,10 +19,15 @@
 
       <td><a href = "{{path('proStages_stages', {id:stageCourant.id})}}" style="color:white; text-decoration:none;">
         {{stageCourant.titre}}</a></td>
-
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('proStages_modifEntreprise',{'id':entrepriseC.id})}}">Modifier</a>
+        </li>
         <td>
         <a href = "{{path('proStages_stages_entreprise', {nom:stageCourant.entreprise.getNom})}}" style="color:white; text-decoration:none;">
           {{stageCourant.entreprise.getNom}}</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{path('proStages_modifEntreprise',{'id':stageCourant.id})}}">Modifier</a>
+          </li>
         </td>
         <td>
           {% for formationCourante in stageCourant.formations %}

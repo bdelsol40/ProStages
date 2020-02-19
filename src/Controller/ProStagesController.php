@@ -34,48 +34,6 @@ $stages=$repositoryStage->findByStages();
 
 
 
-  /**
-  * @Route("/entreprises/ajouter", name="proStages_ajoutEntreprise")
-  */
-
-  public function ajouterEntreprise(Request $request, ObjectManager $manager)
-  {
-
-//Création d'une entreprise vierge qui sera remplie par le Formulaire
-$entreprise = new Entreprise();
-
-//Création du formlulaire permettant de saisir une entreprises
-$formulaireEntreprise = $this->createFormBuilder($entreprise)
-->add('nom', TextType::class)
-->add('activite', TextType::class)
-->add('adresse', TextType::class)
-->add('siteWeb', UrlType::class)
-->getForm();
-
-// On demande au formulaire d'analyser la dernière requête Http. Si le tableau POST contenu dans cette requête
-//contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
-//récupère les valeurs de ces variables et les affecte à l'objet $entreprise
-$formulaireEntreprise->handleRequest($request);
-
-
-
-if($formulaireEntreprise->isSubmitted()){
-
-
-
-  //Enregistrer l'entreprise en base de données
-$manager->persist($entreprise);
-$manager->flush();
-  //Rediriger l'utilisateur vers la page des entreprises
-  return $this->redirectToRoute('proStages_entreprises');
-}
-//création de la représentation graphique du formulaire
-$vueFormulaire = $formulaireEntreprise->createView();
-
-
-    //Afficher la page présentant le formulaire d'ajout d'une entreprise
-    return $this->render('pro_stages/ajoutEntreprise.html.twig',['vueFormulaire' => $vueFormulaire]);
-  }
 
 
 
@@ -134,6 +92,9 @@ $vueFormulaire = $formulaireEntreprise->createView();
     //Envoyer les stages à la vue chargée de les afficher
     return $this->render('pro_stages/entreprise_stages.html.twig',['stages'=>$stages]);
   }
+
+
+
   /**
   * @Route("/formation/{nom}", name="proStages_stages_formation")
   */
@@ -146,4 +107,84 @@ $vueFormulaire = $formulaireEntreprise->createView();
     return $this->render('pro_stages/formation_stages.html.twig',['stages'=>$stages]);
 
   }
+
+
+
+  /**
+  * @Route("/entreprises/ajouter", name="proStages_ajoutEntreprise")
+  */
+
+  public function ajouterEntreprise(Request $request, ObjectManager $manager)
+  {
+
+//Création d'une entreprise vierge qui sera remplie par le Formulaire
+$entreprise = new Entreprise();
+
+//Création du formlulaire permettant de saisir une entreprises
+$formulaireEntreprise = $this->createFormBuilder($entreprise)
+->add('nom', TextType::class)
+->add('activite', TextType::class)
+->add('adresse', TextType::class)
+->add('siteWeb', UrlType::class)
+->getForm();
+
+// On demande au formulaire d'analyser la dernière requête Http. Si le tableau POST contenu dans cette requête
+//contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
+//récupère les valeurs de ces variables et les affecte à l'objet $entreprise
+$formulaireEntreprise->handleRequest($request);
+if($formulaireEntreprise->isSubmitted()){
+
+  //Enregistrer l'entreprise en base de données
+$manager->persist($entreprise);
+$manager->flush();
+  //Rediriger l'utilisateur vers la page des entreprises
+  return $this->redirectToRoute('proStages_entreprises');
+}
+//création de la représentation graphique du formulaire
+$vueFormulaire = $formulaireEntreprise->createView();
+
+
+    //Afficher la page présentant le formulaire d'ajout d'une entreprise
+    return $this->render('pro_stages/ajoutModifEntreprise.html.twig',['vueFormulaire' => $vueFormulaire,'action'=>"ajouter"]);
+  }
+
+
+
+  /**
+  * @Route("/entreprises/modifier/{id}", name="proStages_modifEntreprise")
+  */
+
+  public function modifierEntreprise(Request $request, ObjectManager $manager, Entreprise $entreprise)
+  {
+
+
+//Création du formlulaire permettant de saisir une entreprises
+$formulaireEntreprise = $this->createFormBuilder($entreprise)
+->add('nom', TextType::class)
+->add('activite', TextType::class)
+->add('adresse', TextType::class)
+->add('siteWeb', UrlType::class)
+->getForm();
+
+// On demande au formulaire d'analyser la dernière requête Http. Si le tableau POST contenu dans cette requête
+//contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
+//récupère les valeurs de ces variables et les affecte à l'objet $entreprise
+$formulaireEntreprise->handleRequest($request);
+if($formulaireEntreprise->isSubmitted()){
+
+  //Enregistrer l'entreprise en base de données
+$manager->persist($entreprise);
+$manager->flush();
+  //Rediriger l'utilisateur vers la page des entreprises
+  return $this->redirectToRoute('proStages_entreprises');
+}
+//création de la représentation graphique du formulaire
+$vueFormulaire = $formulaireEntreprise->createView();
+
+
+    //Afficher la page présentant le formulaire d'ajout d'une entreprise
+    return $this->render('pro_stages/ajoutModifEntreprise.html.twig',['vueFormulaire' => $vueFormulaire,'action'=>"modifier"]);
+  }
+
+
 }
