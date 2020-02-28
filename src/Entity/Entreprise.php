@@ -21,37 +21,38 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank
+     *  @Assert\Length(
+     *   min =4,
+     *  minMessage= "le nom ne doit pas contenir moins 4 caractères")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *min =4,
-     *max= 255,
-     *minMessage= "le nom ne doit pas contenir moins {{ limit }} caractères"
-     *maxMessage= "le nom ne doit pas contenir plus {{ limit }} caractères"
-     *)
+    * @Assert\NotBlank
      */
     private $activite;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     *  @Assert\Regex (pattern = "#[rue|avenue|boulevard|impasse|allée|place|voie]#",message= "le type de route/voie semble incorrect")
+     *  @Assert\Regex (pattern="# [0-9]{5} #",message="il  semble y avoir un problème avec le code postal")
+     *  @Assert\Regex (pattern="#[0-9]{1}#",message="Le numéro de rue semble incorrect")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *   @Assert\NotBlank
+     *   @Assert\Url
      */
     private $siteWeb;
 
     /**
-    * @Assert\NotBlank
-    *@Assert\Url
-     * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="entreprise")
-     */
+    * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="entreprise")
+
+    */
     private $stages;
 
     public function __construct()

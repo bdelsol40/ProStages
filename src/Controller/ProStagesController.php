@@ -132,7 +132,7 @@ $formulaireEntreprise = $this->createFormBuilder($entreprise)
 //contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
 //récupère les valeurs de ces variables et les affecte à l'objet $entreprise
 $formulaireEntreprise->handleRequest($request);
-if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise ->isValid){
+if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise ->isValid()){
 
   //Enregistrer l'entreprise en base de données
 $manager->persist($entreprise);
