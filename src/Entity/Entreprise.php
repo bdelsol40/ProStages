@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EntrepriseRepository")
  */
@@ -25,11 +26,19 @@ class Entreprise
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *min =4,
+     *max= 255,
+     *minMessage= "le nom ne doit pas contenir moins {{ limit }} caractères"
+     *maxMessage= "le nom ne doit pas contenir plus {{ limit }} caractères"
+     *)
      */
     private $activite;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $adresse;
 
@@ -39,6 +48,8 @@ class Entreprise
     private $siteWeb;
 
     /**
+    * @Assert\NotBlank
+    *@Assert\Url
      * @ORM\OneToMany(targetEntity="App\Entity\Stage", mappedBy="entreprise")
      */
     private $stages;

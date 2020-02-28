@@ -81,7 +81,7 @@ $stages=$repositoryStage->findByStages();
   }
 
   /**
-  * @Route("/entreprises/{nom}", name="proStages_stages_entreprise")
+  * @Route("/entreprises/show/{nom}", name="proStages_stages_entreprise")
   */
 
   public function indexStagesParEntreprise(StageRepository $repositoryStage, $nom)
@@ -132,7 +132,7 @@ $formulaireEntreprise = $this->createFormBuilder($entreprise)
 //contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
 //récupère les valeurs de ces variables et les affecte à l'objet $entreprise
 $formulaireEntreprise->handleRequest($request);
-if($formulaireEntreprise->isSubmitted()){
+if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise ->isValid){
 
   //Enregistrer l'entreprise en base de données
 $manager->persist($entreprise);

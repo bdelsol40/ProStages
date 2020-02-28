@@ -33,7 +33,9 @@
     <td>{{ entrepriseCourante.activite }}</td>
     <td>{{ entrepriseCourante.adresse }}</td>
     <td>{{ entrepriseCourante.siteWeb }}</td>
-
+    <td>
+      <a class="nav-link" href="{{path('proStages_modifEntreprise',{'id':entrepriseCourante.id})}}">Modifier</a>
+      </td>
   </tr>
 
 {% endfor %}
