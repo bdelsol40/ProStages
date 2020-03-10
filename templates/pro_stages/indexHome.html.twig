@@ -26,10 +26,11 @@
         <td>
           {% for formationCourante in stageCourant.formations %}
           {{formationCourante.nomCourt}}
+          <td> <a class="nav-link" href="{{path('proStages_modifStage',{'id':stageCourant.id})}}">Modifier</a></td>
 
           {% endfor %}
         </td>
-  
+
 
       </tr>
       {% endfor %}

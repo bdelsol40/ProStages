@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Form\EntrepriseType;
+use App\Form\StageType;
+
 
 
 class ProStagesController extends AbstractController
@@ -52,8 +55,7 @@ $stages=$repositoryStage->findByStages();
 
   }
 
-
-  /**
+/**
   * @Route("/formations", name="proStages_formations")
   */
 
@@ -68,17 +70,87 @@ $stages=$repositoryStage->findByStages();
 
 
   }
+     /**
+      * @Route("/stages/new", name="proStages_ajoutStage")
+      */
+
+     public function ajouterStage(Request $request, ObjectManager $manager)
+     {
+         //Création d'une entreprise vierge qui sera remplie par le formulaire
+         $stage = new Stage();
+
+         //Création du formulaire permettent de saisir une entreprise
+
+         $formulaireStage = $this->createForm(Stagetype::class, $stage);
+
+
+          $formulaireStage->handleRequest($request);
+
+          if ($formulaireStage->isSubmitted() && $formulaireStage->isValid())
+          {
+
+             // Enregistrer la ressource en base de donnéelse
+             $manager->persist($stage);
+             $manager->flush();
+
+             // Rediriger l'utilisateur vers la page des stages
+             return $this->redirectToRoute('home');
+          }
+
+         //Création de la représentation graphique du formulaire
+         $vueFormulaire = $formulaireStage->createView();
+
+     //Afficher la page présentant le formulaire d'ajout d'une entreprise
+     return $this->render('pro_stages/ajoutModifStage.html.twig',['vueFormulaire' => $vueFormulaire, 'action'=>"ajouter"]);
+     }
 
 
   /**
-  * @Route("/stages/{id}", name="proStages_stages")
+  * @Route("/stages/modifier/{id}", name="proStages_modifStage")
   */
 
-  public function indexStages(Stage $stage)
-  {
-        //Envoyer le stage à la vue chargée de les afficher
-        return $this->render('pro_stages/indexStages.html.twig', ['stage'=>$stage]);
-  }
+       public function modifierStage(Request $request, ObjectManager $manager, Stage $stage)
+       {
+
+           //Création du formulaire permettent de saisir une entreprise
+           $formulaireStage = $this->createForm(Stagetype::class, $stage);
+
+
+            $formulaireStage->handleRequest($request);
+
+            if ($formulaireStage->isSubmitted() && $formulaireStage->isValid())
+            {
+               // Enregistrer la ressource en base de donnéelse
+               $manager->persist($stage);
+               $manager->flush();
+
+               // Rediriger l'utilisateur vers la page des stages
+               return $this->redirectToRoute('home');
+            }
+
+           //Création de la représentation graphique du formulaire
+           $vueFormulaire = $formulaireStage->createView();
+
+       //Afficher la page présentant le formulaire d'ajout d'un stage
+       return $this->render('pro_stages/ajoutModifStage.html.twig',['vueFormulaire' => $vueFormulaire,'action'=>"modifier"]);
+       }
+
+
+
+
+     /**
+     * @Route("/stages/show/{id}", name="proStages_stages")
+     */
+    public function indexStages(stage $stage)
+    {
+    // Envoyer les stages récupérés à la vue chargée de les afficher
+    return $this->render('pro_stages/indexStages.html.twig',
+    ['stage' => $stage]);
+    }
+
+
+
+
 
   /**
   * @Route("/entreprises/show/{nom}", name="proStages_stages_entreprise")
@@ -90,7 +162,7 @@ $stages=$repositoryStage->findByStages();
     //Récupérer les stages enregistrées en BD
     $stages=$repositoryStage->findByNomEntreprise($nom);
     //Envoyer les stages à la vue chargée de les afficher
-    return $this->render('pro_stages/entreprise_stages.html.twig',['stages'=>$stages]);
+    return $this->render('pro_stages/indexHome.html.twig',['stages'=>$stages]);
   }
 
 
@@ -121,16 +193,12 @@ $stages=$repositoryStage->findByStages();
 $entreprise = new Entreprise();
 
 //Création du formlulaire permettant de saisir une entreprises
-$formulaireEntreprise = $this->createFormBuilder($entreprise)
-->add('nom', TextType::class)
-->add('activite', TextType::class)
-->add('adresse', TextType::class)
-->add('siteWeb', UrlType::class)
-->getForm();
+$formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
 // On demande au formulaire d'analyser la dernière requête Http. Si le tableau POST contenu dans cette requête
 //contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
 //récupère les valeurs de ces variables et les affecte à l'objet $entreprise
+
 $formulaireEntreprise->handleRequest($request);
 if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise ->isValid()){
 
@@ -159,12 +227,8 @@ $vueFormulaire = $formulaireEntreprise->createView();
 
 
 //Création du formlulaire permettant de saisir une entreprises
-$formulaireEntreprise = $this->createFormBuilder($entreprise)
-->add('nom', TextType::class)
-->add('activite', TextType::class)
-->add('adresse', TextType::class)
-->add('siteWeb', UrlType::class)
-->getForm();
+$formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
+
 
 // On demande au formulaire d'analyser la dernière requête Http. Si le tableau POST contenu dans cette requête
 //contient des variables nom,activité, adresse,site web alors la méthode handleRequest()
