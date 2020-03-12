@@ -71,7 +71,7 @@ $stages=$repositoryStage->findByStages();
 
   }
      /**
-      * @Route("/stages/new", name="proStages_ajoutStage")
+      * @Route("/profiler/stages/ajouter", name="proStages_ajoutStage")
       */
 
      public function ajouterStage(Request $request, ObjectManager $manager)
