@@ -24,28 +24,59 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="navbar-toggler-icon"></span>
-					</button> <a class="navbar-brand" href="{{path('proStages_')}}">ProStages</a>
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="navbar-nav">
-							<li class="nav-item">
-								<a class="nav-link" href="{{path('proStages_entreprises')}}">Entreprises</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{path('proStages_formations')}}">Formations</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{path('proStages_ajoutEntreprise')}}">Ajouter une entreprise</a>
-							</li>
-							<li class="nav-item active">
-                <a class="nav-link" href="{{path('proStages_ajoutStage')}}">Ajouter un stage </a>
-               </li>
-						</ul>
-					</div>
-				</nav>
+				              <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+				                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+				                  aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+				                  <span class="navbar-toggler-icon"></span>
+				                </button>
+				                <div class="collapse navbar-collapse" id="navbarText">
+				                  <ul class="navbar-nav mr-auto">
+
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+				                    </li>
+
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="/entreprises">Entreprises </a>
+				                    </li>
+
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="/formations">Formations</a>
+				                    </li>
+
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="{{path('proStages_ajoutEntreprise')}}"><i class="icon-plus"></i>Ajouter une
+				                        entreprise </a>
+				                    </li>
+
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="{{path('proStages_ajoutStage')}}"><i class="icon-plus"></i>Ajouter un stage </a>
+				                    </li>
+				                  </ul>
+				                  <ul class="navbar-nav ml-md-auto">
+				                    {% if is_granted('ROLE_USER') %}
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="{{path('app_logout')}}">
+				                        {{ app.user.prenom }} {{ app.user.nom }}
+				                        <!--<i class="icon-user"></i>-->
+				                        Déconnexion
+				                        <span class="sr-only">(current)</span></a>
+				                    </li>
+
+				                    {% else %}
+				                    <li class="nav-item active">
+				                      <a class="nav-link" href="{{path('app_login')}}">
+				                        <!--<i class="icon-user"></i>-->
+				                        Connexion
+				                        <span class="sr-only">(current)</span></a>
+				                    </li>
+
+				                    {% endif %}
+				                  </ul>
+
+				                </div>
+				              </nav>
 			</div>
 		</div>
 	</div>

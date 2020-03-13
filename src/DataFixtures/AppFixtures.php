@@ -4,6 +4,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Formation;
 use App\Entity\Entreprise;
+use App\Entity\Stage;
 use App\Entity\User;
 
 
