@@ -19,15 +19,15 @@ class AppFixtures extends Fixture
          $patrick->setNom("Etcheverry");
          $patrick->setEmail("patrick@free.fr");
          $patrick->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-         $patrick->setPassword('$2y$10$npaYbzARwhMgfSJV27cZDOe6VhA4fCAcoYbFlg13kp5Z20zUeO8ea');
+         $patrick->setPassword('$2y$10$0ESzHpk.m8x3f8ufuw4tCukolyL00gSjl06SFfSLyJJcBtuQPT.FS');
          $manager->persist($patrick);
 
          $benjamin = new User();
          $benjamin->setPrenom("Benjamin");
          $benjamin->setNom("Delsol");
          $benjamin->setEmail("benjamin@free.fr");
-         $benjamin->setRoles(['ROLE_USER']);
-         $benjamin->setPassword('$2y$10$sF0AWVqrxFJDGXHytbzereO.32UuE8NAR1pgtbxlusz2LrsebNeVi');
+         $benjamin->setRoles(['ROLE_ADMIN']);
+         $benjamin->setPassword('$2y$10$SSbKG/SuWxp7btQQA5j0Oul5t4k9WiAq.sDfViLy3TFO9FMcIt17y');
          $manager->persist($benjamin);
 
     // Création d'un générateur de donnée avec FAKER
