@@ -33,7 +33,7 @@ class Formation
      */
     private $stages;
 
-    
+
 
     public function __construct()
     {
@@ -108,4 +108,5 @@ class Formation
 
         return $this;
     }
+    
 }
