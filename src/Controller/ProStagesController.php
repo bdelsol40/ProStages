@@ -94,7 +94,7 @@ $stages=$repositoryStage->findByStages();
              $manager->flush();
 
              // Rediriger l'utilisateur vers la page des stages
-             return $this->redirectToRoute('home');
+             return $this->redirectToRoute('proStages_');
           }
 
          //Création de la représentation graphique du formulaire
@@ -125,7 +125,7 @@ $stages=$repositoryStage->findByStages();
                $manager->flush();
 
                // Rediriger l'utilisateur vers la page des stages
-               return $this->redirectToRoute('home');
+               return $this->redirectToRoute('proStages_');
             }
 
            //Création de la représentation graphique du formulaire

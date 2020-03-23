@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
          $patrick->setNom("Etcheverry");
          $patrick->setEmail("patrick@free.fr");
          $patrick->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-         $patrick->setPassword('$2y$10$0ESzHpk.m8x3f8ufuw4tCukolyL00gSjl06SFfSLyJJcBtuQPT.FS');
+         $patrick->setPassword('$2y$10$YrLtwQbYL14ll/bnuMUPsuCe829vprURwPn8qr3YmlBP9ldmKy4uq');
          $manager->persist($patrick);
 
          $benjamin = new User();
