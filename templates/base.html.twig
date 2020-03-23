@@ -61,6 +61,11 @@
 				                    </li>
 												{% endif %}
 
+												{% if is_granted('ROLE_ADMIN') %}
+
+     												<a href="/admin" class="btn btn-danger">Interface d'administration</a>
+     										{% endif %}
+
 
 				                  </ul>
 				                  <ul class="navbar-nav ml-md-auto">
